@@ -17,7 +17,6 @@
 @interface ViewController ()<ALNScrollViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *titles;
-@property (strong, nonatomic) ALNScrollView *scrollView;
 
 @end
 
@@ -53,25 +52,23 @@
         [_titles addObject:model];
     }
     
+    ALNScrollView *nestedScrollView = [[ALNScrollView alloc]initWithContentViews:tableViews];
+    [nestedScrollView setFrame:self.view.bounds];
+    nestedScrollView.delegate = self;
+    nestedScrollView.defaultSelectedIndex = 5;
+    nestedScrollView.titleSwitchAnimated = YES;
+    nestedScrollView.contentSwitchAnimated = YES;
+    [nestedScrollView setTitleViewFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 70)];
+    [nestedScrollView setContentViewFrame:CGRectMake(0, 70, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 70)];
+    nestedScrollView.canSwitchWhenScrolling = YES;
+    [nestedScrollView setTitleMinimumLineSpacing:3.0f];
+    [nestedScrollView setTitleMinimumInteritemSpacing:3.0f];
+    [nestedScrollView setTitleSectionInset:UIEdgeInsetsMake(4.0f, 4.0f, 4.0f, 4.0f)];
+    [nestedScrollView setTitleItemSize:CGSizeMake(100, 50)];
+    [nestedScrollView setContentMinimumLineSpacing:0.0f];
+    [nestedScrollView setContentItemSize:CGSizeMake(nestedScrollView.contentViewFrame.size.width, nestedScrollView.contentViewFrame.size.height)];
     
-    self.scrollView = [[ALNScrollView alloc]initWithContentViews:tableViews];
-    [self.scrollView setFrame:self.view.bounds];
-    self.scrollView.delegate = self;
-    self.scrollView.defaultSelectedIndex = 5;
-    self.scrollView.titleSwitchAnimated = YES;
-    self.scrollView.contentSwitchAnimated = YES;
-    [self.scrollView setTitleViewFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 70)];
-    [self.scrollView setContentViewFrame:CGRectMake(0, 70, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - 70)];
-    self.scrollView.canSwitchWhenScrolling = YES;
-    [self.scrollView setTitleMinimumLineSpacing:3.0f];
-    [self.scrollView setTitleMinimumInteritemSpacing:3.0f];
-    [self.scrollView setTitleSectionInset:UIEdgeInsetsMake(4.0f, 4.0f, 4.0f, 4.0f)];
-    [self.scrollView setTitleItemSize:CGSizeMake(100, 50)];
-    [self.scrollView setContentMinimumLineSpacing:0.0f];
-    [self.scrollView setContentItemSize:CGSizeMake(self.scrollView.contentViewFrame.size.width, self.scrollView.contentViewFrame.size.height)];
-    
-    
-    [self.view addSubview:self.scrollView];
+    [self.view addSubview:nestedScrollView];
 }
 
 

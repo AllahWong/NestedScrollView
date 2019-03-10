@@ -91,14 +91,12 @@
 
 #pragma mark - set one item
 - (void)selectItemAtIndex:(NSInteger)index{
-    NSLog(@"%s index = %i",__func__,index);
 
     [self selectItemAtIndex:index animated:_switchAnimated];
 }
 
 - (void)selectItemAtIndex:(NSInteger)index
                  animated:(BOOL)animated{
-    NSLog(@"%s index = %i",__func__,index);
 
     [self performBatchUpdates:^{
         [self reloadData];
@@ -109,7 +107,6 @@
         [self scrollToItemAtIndexPath:self.currentSelectedIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
         self.currentSelectedCell = (UICollectionViewCell <ALNTitleProtocol> *)[self cellForItemAtIndexPath:self.currentSelectedIndexPath];
         [self selectItemAtIndexPath:self.currentSelectedIndexPath animated:animated scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-        NSLog(@"%s 2index = %i",__func__,index);
 
         [self.currentSelectedCell selected];
     }];
@@ -117,9 +114,7 @@
 
 #pragma mark - unselect one item
 - (void)unselectItemAtIndex:(NSInteger)index{
-    NSLog(@"%s index = %i",__func__,index);
     [(UICollectionViewCell <ALNTitleProtocol> *)[self cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]] unSelected];
-    NSLog(@"%s 2index = %i",__func__,index);
 
 }
 
